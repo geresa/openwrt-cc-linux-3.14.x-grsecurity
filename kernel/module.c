@@ -2761,10 +2761,10 @@ static int check_modinfo(struct module *mod, struct load_info *info, int flags)
 		pr_warn("%s: module is from the staging directory, the quality "
 			"is unknown, you have been warned.\n", mod->name);
 	}
-#endif
 
 	/* Set up license info based on the info section */
 	set_license(mod, license);
+#endif
 
 	return 0;
 }
