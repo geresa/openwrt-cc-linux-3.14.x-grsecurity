@@ -1620,6 +1620,9 @@ config SYS_HAS_CPU_XLR
 config SYS_HAS_CPU_XLP
 	bool
 
+config SYS_HAS_DMA_OPS
+	bool
+
 #
 # CPU may reorder R->R, R->W, W->R, W->W
 # Reordering beyond LL and SC is handled in WEAK_REORDERING_BEYOND_LLSC
