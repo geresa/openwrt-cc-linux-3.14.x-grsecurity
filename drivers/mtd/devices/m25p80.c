@@ -530,6 +530,8 @@ static int m25p80_read(struct mtd_info *mtd, loff_t from, size_t len,
 	if (dummy < 0) {
 		dev_err(&flash->spi->dev, "No valid read command supported\n");
 		return -EINVAL;
+	} else if (dummy == 1) {
+		t[0].dummy = true;
 	}
 
 	t[0].type = SPI_TRANSFER_FLASH_READ_CMD;
