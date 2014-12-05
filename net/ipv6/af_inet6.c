@@ -62,6 +62,7 @@
 #endif
 
 #include <asm/uaccess.h>
+#include <asm/unaligned.h>
 #include <linux/mroute6.h>
 
 MODULE_AUTHOR("Cast of dozens");
@@ -679,11 +680,12 @@ bool ipv6_opt_accepted(const struct sock *sk, const struct sk_buff *skb)
 {
 	const struct ipv6_pinfo *np = inet6_sk(sk);
 	const struct inet6_skb_parm *opt = IP6CB(skb);
+	unsigned char *header = skb_network_header(skb);
 
 	if (np->rxopt.all) {
 		if ((opt->hop && (np->rxopt.bits.hopopts ||
 				  np->rxopt.bits.ohopopts)) ||
-		    (ip6_flowinfo((struct ipv6hdr *) skb_network_header(skb)) &&
+		    (ip6_flowinfo((struct ipv6hdr *)net_hdr_word(header)) &&
 		     np->rxopt.bits.rxflow) ||
 		    (opt->srcrt && (np->rxopt.bits.srcrt ||
 		     np->rxopt.bits.osrcrt)) ||
