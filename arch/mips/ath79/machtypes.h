@@ -58,6 +58,7 @@ enum ath79_mach_type {
 	ATH79_MACH_MR600V2,		/* OpenMesh MR600v2 */
 	ATH79_MACH_MR600,		/* OpenMesh MR600 */
 	ATH79_MACH_MYNET_N600,		/* WD My Net N600 */
+	ATH79_MACH_MYNET_N750,		/* WD My Net N750 */
 	ATH79_MACH_MYNET_REXT,		/* WD My Net Wi-Fi Range Extender */
 	ATH79_MACH_MZK_W04NU,		/* Planex MZK-W04NU */
 	ATH79_MACH_MZK_W300NH,		/* Planex MZK-W300NH */
