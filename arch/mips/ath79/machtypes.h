@@ -51,6 +51,8 @@ enum ath79_mach_type {
 	ATH79_MACH_EW_DORIN,		/* embedded wireless Dorin Platform */
 	ATH79_MACH_EW_DORIN_ROUTER,	/* embedded wireless Dorin Router Platform */
 	ATH79_MACH_EAP7660D,		/* Senao EAP7660D */
+	ATH79_MACH_EL_M150,		/* EasyLink EL-M150 */
+	ATH79_MACH_EL_MINI,		/* EasyLink EL-MINI */
 	ATH79_MACH_GS_OOLITE,           /* GS OOLITE V1.0 */
 	ATH79_MACH_HIWIFI_HC6361,	/* HiWiFi HC6361 */
 	ATH79_MACH_JA76PF,		/* jjPlus JA76PF */
