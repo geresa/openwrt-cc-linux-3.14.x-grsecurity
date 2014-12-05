@@ -117,6 +117,7 @@ obj-$(CONFIG_ATH79_MACH_TL_WR1043ND_V2)	+= mach-tl-wr1043nd-v2.o
 obj-$(CONFIG_ATH79_MACH_TL_WR2543N)	+= mach-tl-wr2543n.o
 obj-$(CONFIG_ATH79_MACH_TL_WR703N)	+= mach-tl-wr703n.o
 obj-$(CONFIG_ATH79_MACH_TL_WR720N_V3)	+= mach-tl-wr720n-v3.o
+obj-$(CONFIG_ATH79_MACH_TUBE2H)		+= mach-tube2h.o
 obj-$(CONFIG_ATH79_MACH_UBNT)		+= mach-ubnt.o
 obj-$(CONFIG_ATH79_MACH_UBNT_XM)	+= mach-ubnt-xm.o
 obj-$(CONFIG_ATH79_MACH_WHR_HP_G300N)	+= mach-whr-hp-g300n.o
