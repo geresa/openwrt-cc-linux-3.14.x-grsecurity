@@ -20,6 +20,7 @@ obj-$(CONFIG_MTD_AR7_PARTS)	+= ar7part.o
 obj-$(CONFIG_MTD_BCM63XX_PARTS)	+= bcm63xxpart.o
 obj-$(CONFIG_MTD_BCM47XX_PARTS)	+= bcm47xxpart.o
 obj-$(CONFIG_MTD_MYLOADER_PARTS) += myloader.o
+obj-$(CONFIG_MTD_TPLINK_PARTS)	+= tplinkpart.o
 obj-$(CONFIG_MTD_WRT160NL_PARTS) += wrt160nl_part.o
 
 # 'Users' - code which presents functionality to userspace.
