@@ -1340,7 +1340,7 @@ struct super_block {
 	 * Indicates how deep in a filesystem stack this SB is
 	 */
 	int s_stack_depth;
-};
+} __randomize_layout;
 
 extern struct timespec current_fs_time(struct super_block *sb);
 
