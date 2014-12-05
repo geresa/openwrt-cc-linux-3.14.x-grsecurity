@@ -180,6 +180,12 @@ void __init prom_init(void)
 			ath79_prom_append_cmdline("board", env);
 		}
 	}
+
+	if (strstr(arcs_cmdline, "board=750Gr3") ||
+	    strstr(arcs_cmdline, "board=951G") ||
+	    strstr(arcs_cmdline, "board=2011L") ||
+	    strstr(arcs_cmdline, "board=711Gr100"))
+		ath79_prom_append_cmdline("console", "ttyS0,115200");
 }
 
 void __init prom_free_prom_memory(void)
