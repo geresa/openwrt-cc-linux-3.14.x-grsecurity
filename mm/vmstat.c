@@ -1314,13 +1314,20 @@ static int __init setup_vmstat(void)
 	}
 	put_online_cpus();
 #endif
+
 #ifdef CONFIG_PROC_FS
-	if (!IS_ENABLED(CONFIG_PROC_STRIPPED)) {
-		proc_create("buddyinfo", S_IRUGO, NULL, &fragmentation_file_operations);
-		proc_create("pagetypeinfo", S_IRUGO, NULL, &pagetypeinfo_file_ops);
-		proc_create("zoneinfo", S_IRUGO, NULL, &proc_zoneinfo_file_operations);
+	{
+		mode_t gr_mode = S_IRUGO;
+#ifdef CONFIG_GRKERNSEC_PROC_ADD
+		gr_mode = S_IRUSR;
+#endif
+	  if (!IS_ENABLED(CONFIG_PROC_STRIPPED)) {
+		  proc_create("buddyinfo", gr_mode, NULL, &fragmentation_file_operations);
+		  proc_create("pagetypeinfo", gr_mode, NULL, &pagetypeinfo_file_ops);
+		  proc_create("vmstat", S_IRUGO, NULL, &proc_vmstat_file_operations);
+	  }
+		proc_create("zoneinfo", gr_mode, NULL, &proc_zoneinfo_file_operations);
 	}
-	proc_create("vmstat", S_IRUGO, NULL, &proc_vmstat_file_operations);
 #endif
 	return 0;
 }
