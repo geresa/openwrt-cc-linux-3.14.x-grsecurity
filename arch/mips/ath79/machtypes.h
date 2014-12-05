@@ -144,6 +144,7 @@ enum ath79_mach_type {
 	ATH79_MACH_TL_WR842N_V2,	/* TP-LINK TL-WR842N/ND v2 */
 	ATH79_MACH_TL_WR941ND,		/* TP-LINK TL-WR941ND */
 	ATH79_MACH_TUBE2H,		/* Alfa Network Tube2H */
+	ATH79_MACH_UBNT_AIRGW,		/* Ubiquiti AirGateway */
 	ATH79_MACH_UBNT_AIRROUTER,	/* Ubiquiti AirRouter */
 	ATH79_MACH_UBNT_BULLET_M,	/* Ubiquiti Bullet M */
 	ATH79_MACH_UBNT_LOCO_M_XW, 	/* Ubiquiti Loco M XW */
