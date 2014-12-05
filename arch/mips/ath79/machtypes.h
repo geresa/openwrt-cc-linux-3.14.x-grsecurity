@@ -40,6 +40,7 @@ enum ath79_mach_type {
 	ATH79_MACH_CPE510,		/* TP-LINK CPE510 */
 	ATH79_MACH_DB120,		/* Atheros DB120 reference board */
 	ATH79_MACH_PB44,		/* Atheros PB44 reference board */
+	ATH79_MACH_DHP_1565_A1,		/* D-Link DHP-1565 rev. A1 */
 	ATH79_MACH_DIR_505_A1,		/* D-Link DIR-505 rev. A1 */
 	ATH79_MACH_DIR_600_A1,		/* D-Link DIR-600 rev. A1 */
 	ATH79_MACH_DIR_615_C1,		/* D-Link DIR-615 rev. C1 */
