@@ -293,6 +293,16 @@ config ATH79_MACH_WPE72
 	select ATH79_DEV_USB
 	select MYLOADER
 
+config ATH79_MACH_DGL_5500_A1
+	bool "D-Link DGL-5500 A1 support"
+	select SOC_QCA955X
+	select ATH79_DEV_ETH
+	select ATH79_DEV_GPIO_BUTTONS
+	select ATH79_DEV_LEDS_GPIO
+	select ATH79_DEV_M25P80
+	select ATH79_DEV_WMAC
+	select ATH79_DEV_USB
+
 config ATH79_MACH_DHP_1565_A1
 	bool "D-Link DHP-1565 rev. A1 board support"
 	select SOC_AR934X
