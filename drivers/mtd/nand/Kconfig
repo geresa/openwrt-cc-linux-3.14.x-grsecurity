@@ -510,4 +510,8 @@ config MTD_NAND_XWAY
 	  Enables support for NAND Flash chips on Lantiq XWAY SoCs. NAND is attached
 	  to the External Bus Unit (EBU).
 
+config MTD_NAND_RB4XX
+	tristate "NAND flash driver for RouterBoard 4xx series"
+	depends on MTD_NAND && ATH79_MACH_RB4XX
+
 endif # MTD_NAND
