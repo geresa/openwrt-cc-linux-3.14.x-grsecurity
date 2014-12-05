@@ -145,8 +145,8 @@ static void crashlog_do_dump(struct kmsg_dumper *dumper,
 		crashlog_printf("Modules:");
 		list_for_each_entry(m, crashlog_modules, list) {
 			crashlog_printf("\t%s@%p+%x", m->name,
-			m->module_core, m->core_size,
-			m->module_init, m->init_size);
+			m->module_core_rx, m->core_size_rx,
+			m->module_init_rx, m->init_size_rx); /* FIXME: sprintf bug here! */ /* FIXME: grsec... */
 		}
 		crashlog_printf("\n");
 		first = false;
