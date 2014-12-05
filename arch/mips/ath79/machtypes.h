@@ -48,6 +48,7 @@ enum ath79_mach_type {
 	ATH79_MACH_DIR_825_C1,		/* D-Link DIR-825 rev. C1 */
 	ATH79_MACH_DIR_835_A1,		/* D-Link DIR-835 rev. A1 */
 	ATH79_MACH_DRAGINO2,		/* Dragino Version 2 */
+	ATH79_MACH_ESR900,		/* EnGenius ESR900 */
 	ATH79_MACH_EW_DORIN,		/* embedded wireless Dorin Platform */
 	ATH79_MACH_EW_DORIN_ROUTER,	/* embedded wireless Dorin Router Platform */
 	ATH79_MACH_EAP7660D,		/* Senao EAP7660D */
