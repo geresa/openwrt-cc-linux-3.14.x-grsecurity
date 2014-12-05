@@ -75,7 +75,7 @@ void ath79_device_reset_set(u32 mask)
 	else if (soc_is_qca955x())
 		reg = QCA955X_RESET_REG_RESET_MODULE;
 	else
-		BUG();
+		panic("Reset register not defined for this SOC");
 
 	spin_lock_irqsave(&ath79_device_reset_lock, flags);
 	t = ath79_reset_rr(reg);
@@ -103,7 +103,7 @@ void ath79_device_reset_clear(u32 mask)
 	else if (soc_is_qca955x())
 		reg = QCA955X_RESET_REG_RESET_MODULE;
 	else
-		BUG();
+		panic("Reset register not defined for this SOC");
 
 	spin_lock_irqsave(&ath79_device_reset_lock, flags);
 	t = ath79_reset_rr(reg);
