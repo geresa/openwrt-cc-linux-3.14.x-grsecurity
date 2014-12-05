@@ -483,6 +483,17 @@ config ATH79_MACH_WRT400N
 	select ATH79_DEV_LEDS_GPIO
 	select ATH79_DEV_M25P80
 
+config ATH79_MACH_R6100
+	bool "NETGEAR R6100 board support"
+	select SOC_AR934X
+	select ATH79_DEV_AP9X_PCI if PCI
+	select ATH79_DEV_ETH
+	select ATH79_DEV_GPIO_BUTTONS
+	select ATH79_DEV_LEDS_GPIO
+	select ATH79_DEV_NFC
+	select ATH79_DEV_USB
+	select ATH79_DEV_WMAC
+
 config ATH79_MACH_RB4XX
 	bool "MikroTik RouterBOARD 4xx series support"
 	select SOC_AR71XX
