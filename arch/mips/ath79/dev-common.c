@@ -93,6 +93,7 @@ void __init ath79_register_uart(void)
 	    soc_is_ar724x() ||
 	    soc_is_ar913x() ||
 	    soc_is_ar934x() ||
+	    soc_is_qca953x() ||
 	    soc_is_qca955x()) {
 		ath79_uart_data[0].uartclk = uart_clk_rate;
 		platform_device_register(&ath79_uart_device);
