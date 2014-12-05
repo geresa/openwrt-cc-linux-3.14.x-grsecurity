@@ -79,6 +79,7 @@ obj-$(CONFIG_ATH79_MACH_PB44)		+= mach-pb44.o
 obj-$(CONFIG_ATH79_MACH_PB92)		+= mach-pb92.o
 obj-$(CONFIG_ATH79_MACH_RB4XX)		+= mach-rb4xx.o
 obj-$(CONFIG_ATH79_MACH_RB750)		+= mach-rb750.o
+obj-$(CONFIG_ATH79_MACH_RB91X)		+= mach-rb91x.o
 obj-$(CONFIG_ATH79_MACH_RB95X)		+= mach-rb95x.o
 obj-$(CONFIG_ATH79_MACH_RB2011)		+= mach-rb2011.o
 obj-$(CONFIG_ATH79_MACH_RW2458N)	+= mach-rw2458n.o
