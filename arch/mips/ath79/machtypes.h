@@ -94,6 +94,7 @@ enum ath79_mach_type {
 	ATH79_MACH_RB_2011G,		/* Mikrotik RouterBOARD 2011UAS-2HnD */
 	ATH79_MACH_RB_2011L,		/* Mikrotik RouterBOARD 2011L */
 	ATH79_MACH_RB_2011US,		/* Mikrotik RouterBOARD 2011UAS */
+	ATH79_MACH_RB_2011R5,		/* Mikrotik RouterBOARD 2011UiAS */
 	ATH79_MACH_RB_SXTLITE2ND,	/* Mikrotik RouterBOARD SXT Lite 2nD */
 	ATH79_MACH_RB_SXTLITE5ND,	/* Mikrotik RouterBOARD SXT Lite 5nD */
 	ATH79_MACH_RW2458N,		/* Redwave RW2458N */
