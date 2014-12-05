@@ -57,6 +57,6 @@ static void p_lzma_free(void *p, void *address)
                 LZMA_FREE(address);
 }
 
-static ISzAlloc lzma_alloc = {p_lzma_malloc, p_lzma_free};
+static ISzAlloc lzma_alloc = { .Alloc = p_lzma_malloc, .Free = p_lzma_free};
 
 #endif
