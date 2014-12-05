@@ -191,10 +191,18 @@ static inline bool is_phys_addr(void *ptr)
 void module_free(struct module *mod, void *module_region)
 {
 	if (is_phys_addr(module_region)) {
-		if (mod->module_init == module_region)
-			free_phys(module_region, mod->init_size);
-		else if (mod->module_core == module_region)
-			free_phys(module_region, mod->core_size);
+#ifdef CONFIG_PAX_KERNEXEC
+#error CONFIG_PAX_KERNEXEC not supported by OpenWRT mips target
+#endif
+		/* For now we dont support CONFIG_PAX_KERNEXEC; just treat both the same */
+		if (mod->module_init_rw == module_region)
+			free_phys(module_region, mod->init_size_rw);
+		else if (mod->module_init_rx == module_region)
+			free_phys(module_region, mod->init_size_rx);
+		else if (mod->module_core_rw == module_region)
+			free_phys(module_region, mod->core_size_rw);
+		else if (mod->module_core_rx == module_region)
+			free_phys(module_region, mod->core_size_rx);
 		else
 			BUG();
 	} else {
