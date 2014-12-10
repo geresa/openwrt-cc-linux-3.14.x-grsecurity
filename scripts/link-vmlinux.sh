@@ -86,6 +86,10 @@ kallsyms()
 		kallsymopt="${kallsymopt} --page-offset=$CONFIG_PAGE_OFFSET"
 	fi
 
+	if [ -n "${CONFIG_KALLSYMS_UNCOMPRESSED}" ]; then
+		kallsymopt="${kallsymopt} --uncompressed"
+	fi
+
 	local aflags="${KBUILD_AFLAGS} ${KBUILD_AFLAGS_KERNEL}               \
 		      ${NOSTDINC_FLAGS} ${LINUXINCLUDE} ${KBUILD_CPPFLAGS}"
 
