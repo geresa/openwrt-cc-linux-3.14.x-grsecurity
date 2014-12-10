@@ -67,6 +67,7 @@ enum ath79_mach_type {
 	ATH79_MACH_HORNET_UB,		/* ALFA Networks Hornet-UB */
 	ATH79_MACH_MR600V2,		/* OpenMesh MR600v2 */
 	ATH79_MACH_MR600,		/* OpenMesh MR600 */
+	ATH79_MACH_MR900,		/* OpenMesh MR900 */
 	ATH79_MACH_MYNET_N600,		/* WD My Net N600 */
 	ATH79_MACH_MYNET_N750,		/* WD My Net N750 */
 	ATH79_MACH_MYNET_REXT,		/* WD My Net Wi-Fi Range Extender */
