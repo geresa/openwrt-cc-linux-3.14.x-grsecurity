@@ -55,6 +55,7 @@ obj-$(CONFIG_ATH79_MACH_BHU_BXU2000N2_A)+= mach-bhu-bxu2000n2-a.o
 obj-$(CONFIG_ATH79_MACH_CAP4200AG)	+= mach-cap4200ag.o
 obj-$(CONFIG_ATH79_MACH_CPE510)		+= mach-cpe510.o
 obj-$(CONFIG_ATH79_MACH_DB120)		+= mach-db120.o
+obj-$(CONFIG_ATH79_MACH_DHP_1565_A1)	+= mach-dhp-1565-a1.o
 obj-$(CONFIG_ATH79_MACH_DIR_505_A1)	+= mach-dir-505-a1.o
 obj-$(CONFIG_ATH79_MACH_DIR_600_A1)	+= mach-dir-600-a1.o
 obj-$(CONFIG_ATH79_MACH_DIR_615_C1)	+= mach-dir-615-c1.o
