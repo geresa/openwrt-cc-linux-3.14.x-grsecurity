@@ -908,6 +908,17 @@ config ATH79_MACH_NBG460N
 	select ATH79_DEV_M25P80
 	select ATH79_DEV_WMAC
 
+config ATH79_MACH_NBG6716
+	bool "Zyxel NBG6716 board support"
+	select SOC_QCA955X
+	select ATH79_DEV_ETH
+	select ATH79_DEV_GPIO_BUTTONS
+	select ATH79_DEV_LEDS_GPIO
+	select ATH79_DEV_M25P80
+	select ATH79_DEV_NFC
+	select ATH79_DEV_USB
+	select ATH79_DEV_WMAC
+
 config ATH79_MACH_CARAMBOLA2
 	bool "8devices Carambola2 board"
 	select SOC_AR933X
