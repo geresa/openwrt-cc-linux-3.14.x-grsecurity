@@ -81,6 +81,7 @@ enum ath79_mach_type {
 	ATH79_MACH_OM5P,		/* OpenMesh OM5P */
 	ATH79_MACH_PB42,		/* Atheros PB42 */
 	ATH79_MACH_PB92,		/* Atheros PB92 */
+	ATH79_MACH_QIHOO_C301,		/* Qihoo 360 C301 */
 	ATH79_MACH_RB_411,		/* MikroTik RouterBOARD 411/411A/411AH */
 	ATH79_MACH_RB_411U,		/* MikroTik RouterBOARD 411U */
 	ATH79_MACH_RB_433,		/* MikroTik RouterBOARD 433/433AH */
