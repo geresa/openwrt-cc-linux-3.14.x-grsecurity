@@ -34,7 +34,7 @@
 #include <linux/mtd/partitions.h>
 
 #include <asm/mach-bcm63xx/bcm63xx_nvram.h>
-#include <asm/mach-bcm63xx/bcm963xx_tag.h>
+#include <linux/bcm963xx_tag.h>
 #include <asm/mach-bcm63xx/board_bcm963xx.h>
 
 #define BCM63XX_EXTENDED_SIZE	0xBFC00000	/* Extended flash address */
