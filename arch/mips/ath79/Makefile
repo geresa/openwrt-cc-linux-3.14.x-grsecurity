@@ -63,6 +63,7 @@ obj-$(CONFIG_ATH79_MACH_DIR_825_C1)	+= mach-dir-825-c1.o
 obj-$(CONFIG_ATH79_MACH_DRAGINO2)	+= mach-dragino2.o
 obj-$(CONFIG_ATH79_MACH_EW_DORIN)	+= mach-ew-dorin.o
 obj-$(CONFIG_ATH79_MACH_EAP7660D)	+= mach-eap7660d.o
+obj-$(CONFIG_ATH79_MACH_GS_OOLITE)	+= mach-gs-oolite.o
 obj-$(CONFIG_ATH79_MACH_JA76PF)		+= mach-ja76pf.o
 obj-$(CONFIG_ATH79_MACH_JWAP003)	+= mach-jwap003.o
 obj-$(CONFIG_ATH79_MACH_HORNET_UB)	+= mach-hornet-ub.o
