@@ -151,6 +151,12 @@ static void __init ath79_detect_sys_type(void)
 		rev = id & AR934X_REV_ID_REVISION_MASK;
 		break;
 
+	case REV_ID_MAJOR_QCA9533:
+		ath79_soc = ATH79_SOC_QCA9533;
+		chip = "9533";
+		rev = id & QCA953X_REV_ID_REVISION_MASK;
+		break;
+
 	case REV_ID_MAJOR_QCA9556:
 		ath79_soc = ATH79_SOC_QCA9556;
 		chip = "9556";
@@ -169,7 +175,7 @@ static void __init ath79_detect_sys_type(void)
 
 	ath79_soc_rev = rev;
 
-	if (soc_is_qca955x())
+	if (soc_is_qca953x() || soc_is_qca955x())
 		sprintf(ath79_sys_type, "Qualcomm Atheros QCA%s rev %u",
 			chip, rev);
 	else
