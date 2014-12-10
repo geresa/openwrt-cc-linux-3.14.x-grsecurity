@@ -15,6 +15,7 @@
 #include <linux/netfilter_ipv4/ip_tables.h>
 #include <linux/slab.h>
 #include <net/ip.h>
+#include <net/netfilter/nf_conntrack.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Netfilter Core Team <coreteam@netfilter.org>");
@@ -37,6 +38,7 @@ iptable_filter_hook(const struct nf_hook_ops *ops, struct sk_buff *skb,
 		    const struct net_device *in, const struct net_device *out,
 		    int (*okfn)(struct sk_buff *))
 {
+	enum ip_conntrack_info ctinfo;
 	const struct net *net;
 
 	if (ops->hooknum == NF_INET_LOCAL_OUT &&
@@ -46,6 +48,11 @@ iptable_filter_hook(const struct nf_hook_ops *ops, struct sk_buff *skb,
 		return NF_ACCEPT;
 
 	net = dev_net((in != NULL) ? in : out);
+	nf_ct_get(skb, &ctinfo);
+	if ((ctinfo == IP_CT_ESTABLISHED_REPLY || ctinfo == IP_CT_ESTABLISHED) &&
+	    net->ct.skip_filter)
+	    return NF_ACCEPT;
+
 	return ipt_do_table(skb, ops->hooknum, in, out,
 			    net->ipv4.iptable_filter);
 }

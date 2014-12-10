@@ -13,6 +13,7 @@
 #include <linux/moduleparam.h>
 #include <linux/netfilter_ipv6/ip6_tables.h>
 #include <linux/slab.h>
+#include <net/netfilter/nf_conntrack.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Netfilter Core Team <coreteam@netfilter.org>");
@@ -37,6 +38,12 @@ ip6table_filter_hook(const struct nf_hook_ops *ops, struct sk_buff *skb,
 		     int (*okfn)(struct sk_buff *))
 {
 	const struct net *net = dev_net((in != NULL) ? in : out);
+	enum ip_conntrack_info ctinfo;
+
+	nf_ct_get(skb, &ctinfo);
+	if ((ctinfo == IP_CT_ESTABLISHED_REPLY || ctinfo == IP_CT_ESTABLISHED) &&
+	    net->ct.skip_filter)
+	    return NF_ACCEPT;
 
 	return ip6t_do_table(skb, ops->hooknum, in, out,
 			     net->ipv6.ip6table_filter);
