@@ -51,6 +51,7 @@ enum ath79_mach_type {
 	ATH79_MACH_ESR900,		/* EnGenius ESR900 */
 	ATH79_MACH_EW_DORIN,		/* embedded wireless Dorin Platform */
 	ATH79_MACH_EW_DORIN_ROUTER,	/* embedded wireless Dorin Router Platform */
+	ATH79_MACH_EAP300V2,		/* EnGenius EAP300 v2 */
 	ATH79_MACH_EAP7660D,		/* Senao EAP7660D */
 	ATH79_MACH_EL_M150,		/* EasyLink EL-M150 */
 	ATH79_MACH_EL_MINI,		/* EasyLink EL-MINI */
