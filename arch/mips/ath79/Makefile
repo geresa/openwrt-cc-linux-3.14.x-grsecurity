@@ -82,6 +82,7 @@ obj-$(CONFIG_ATH79_MACH_MZK_W04NU)	+= mach-mzk-w04nu.o
 obj-$(CONFIG_ATH79_MACH_MZK_W300NH)	+= mach-mzk-w300nh.o
 obj-$(CONFIG_ATH79_MACH_NBG460N)	+= mach-nbg460n.o
 obj-$(CONFIG_ATH79_MACH_OM2P)		+= mach-om2p.o
+obj-$(CONFIG_ATH79_MACH_OM5P)		+= mach-om5p.o
 obj-$(CONFIG_ATH79_MACH_PB42)		+= mach-pb42.o
 obj-$(CONFIG_ATH79_MACH_PB44)		+= mach-pb44.o
 obj-$(CONFIG_ATH79_MACH_PB92)		+= mach-pb92.o
