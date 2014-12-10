@@ -68,6 +68,7 @@ obj-$(CONFIG_ATH79_MACH_JWAP003)	+= mach-jwap003.o
 obj-$(CONFIG_ATH79_MACH_HORNET_UB)	+= mach-hornet-ub.o
 obj-$(CONFIG_ATH79_MACH_MR600)		+= mach-mr600.o
 obj-$(CONFIG_ATH79_MACH_MYNET_N600)	+= mach-mynet-n600.o
+obj-$(CONFIG_ATH79_MACH_MYNET_N750)	+= mach-mynet-n750.o
 obj-$(CONFIG_ATH79_MACH_MYNET_REXT)	+= mach-mynet-rext.o
 obj-$(CONFIG_ATH79_MACH_MZK_W04NU)	+= mach-mzk-w04nu.o
 obj-$(CONFIG_ATH79_MACH_MZK_W300NH)	+= mach-mzk-w300nh.o
