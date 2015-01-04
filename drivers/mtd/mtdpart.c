@@ -29,9 +29,11 @@
 #include <linux/kmod.h>
 #include <linux/mtd/mtd.h>
 #include <linux/mtd/partitions.h>
+#include <linux/magic.h>
 #include <linux/err.h>
 
 #include "mtdcore.h"
+#include "mtdsplit/mtdsplit.h"
 
 /* Our partition linked list */
 static LIST_HEAD(mtd_partitions);
@@ -45,12 +47,13 @@ struct mtd_part {
 	struct list_head list;
 };
 
+static void mtd_partition_split(struct mtd_info *master, struct mtd_part *part);
+
 /*
  * Given a pointer to the MTD object in the mtd_part structure, we can retrieve
  * the pointer to that structure with this macro.
  */
 #define PART(x)  ((struct mtd_part *)(x))
-
 
 /*
  * MTD methods which simply translate the effective address and pass through
@@ -534,8 +537,10 @@ out_register:
 	return slave;
 }
 
-int mtd_add_partition(struct mtd_info *master, const char *name,
-		      long long offset, long long length)
+
+static int
+__mtd_add_partition(struct mtd_info *master, const char *name,
+		    long long offset, long long length, bool dup_check)
 {
 	struct mtd_partition part;
 	struct mtd_part *p, *new;
@@ -567,21 +572,24 @@ int mtd_add_partition(struct mtd_info *master, const char *name,
 	end = offset + length;
 
 	mutex_lock(&mtd_partitions_mutex);
-	list_for_each_entry(p, &mtd_partitions, list)
-		if (p->master == master) {
-			if ((start >= p->offset) &&
-			    (start < (p->offset + p->mtd.size)))
-				goto err_inv;
+	if (dup_check) {
+		list_for_each_entry(p, &mtd_partitions, list)
+			if (p->master == master) {
+				if ((start >= p->offset) &&
+				    (start < (p->offset + p->mtd.size)))
+					goto err_inv;
 
-			if ((end >= p->offset) &&
-			    (end < (p->offset + p->mtd.size)))
-				goto err_inv;
-		}
+				if ((end >= p->offset) &&
+				    (end < (p->offset + p->mtd.size)))
+					goto err_inv;
+			}
+	}
 
 	list_add(&new->list, &mtd_partitions);
 	mutex_unlock(&mtd_partitions_mutex);
 
 	add_mtd_device(&new->mtd);
+	mtd_partition_split(master, new);
 
 	return ret;
 err_inv:
@@ -590,6 +598,12 @@ err_inv:
 	return -EINVAL;
 }
 EXPORT_SYMBOL_GPL(mtd_add_partition);
+
+int mtd_add_partition(struct mtd_info *master, const char *name,
+		      long long offset, long long length)
+{
+	return __mtd_add_partition(master, name, offset, length, true);
+}
 
 int mtd_del_partition(struct mtd_info *master, int partno)
 {
@@ -614,6 +628,35 @@ int mtd_del_partition(struct mtd_info *master, int partno)
 }
 EXPORT_SYMBOL_GPL(mtd_del_partition);
 
+#ifdef CONFIG_MTD_SPLIT_FIRMWARE_NAME
+#define SPLIT_FIRMWARE_NAME	CONFIG_MTD_SPLIT_FIRMWARE_NAME
+#else
+#define SPLIT_FIRMWARE_NAME	"unused"
+#endif
+
+static void split_firmware(struct mtd_info *master, struct mtd_part *part)
+{
+}
+
+void __weak arch_split_mtd_part(struct mtd_info *master, const char *name,
+                                int offset, int size)
+{
+}
+
+static void mtd_partition_split(struct mtd_info *master, struct mtd_part *part)
+{
+	static int rootfs_found = 0;
+
+	if (rootfs_found)
+		return;
+
+	if (!strcmp(part->mtd.name, SPLIT_FIRMWARE_NAME) &&
+	    config_enabled(CONFIG_MTD_SPLIT_FIRMWARE))
+		split_firmware(master, part);
+
+	arch_split_mtd_part(master, part->mtd.name, part->offset,
+			    part->mtd.size);
+}
 /*
  * This function, given a master MTD object and a partition table, creates
  * and registers slave MTD objects which are bound to the master according to
@@ -643,6 +686,7 @@ int add_mtd_partitions(struct mtd_info *master,
 		mutex_unlock(&mtd_partitions_mutex);
 
 		add_mtd_device(&slave->mtd);
+		mtd_partition_split(master, slave);
 
 		cur_offset = slave->offset + slave->mtd.size;
 	}
