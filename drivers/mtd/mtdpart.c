@@ -668,6 +668,47 @@ mtd_pad_erasesize(struct mtd_info *mtd, int offset, int len)
 	return len;
 }
 
+static int split_squashfs(struct mtd_info *master, int offset, int *split_offset)
+{
+	size_t squashfs_len;
+	int len, ret;
+
+	ret = mtd_get_squashfs_len(master, offset, &squashfs_len);
+	if (ret)
+		return ret;
+
+	len = mtd_pad_erasesize(master, offset, squashfs_len);
+	*split_offset = offset + len;
+
+	return 0;
+}
+
+static void split_rootfs_data(struct mtd_info *master, struct mtd_part *part)
+{
+	unsigned int split_offset = 0;
+	unsigned int split_size;
+	int ret;
+
+	ret = split_squashfs(master, part->offset, &split_offset);
+	if (ret)
+		return;
+
+	if (split_offset <= 0)
+		return;
+
+	if (config_enabled(CONFIG_MTD_SPLIT_SQUASHFS_ROOT))
+		pr_err("Dedicated partitioner didn't create \"rootfs_data\" partition, please fill a bug report!\n");
+	else
+		pr_warn("Support for built-in \"rootfs_data\" splitter will be removed, please use CONFIG_MTD_SPLIT_SQUASHFS_ROOT\n");
+
+	split_size = part->mtd.size - (split_offset - part->offset);
+	printk(KERN_INFO "mtd: partition \"%s\" created automatically, ofs=0x%x, len=0x%x\n",
+		ROOTFS_SPLIT_NAME, split_offset, split_size);
+
+	__mtd_add_partition(master, ROOTFS_SPLIT_NAME, split_offset,
+			    split_size, false);
+}
+
 #define UBOOT_MAGIC	0x27051956
 
 static void split_uimage(struct mtd_info *master, struct mtd_part *part)
@@ -730,7 +771,10 @@ static void mtd_partition_split(struct mtd_info *master, struct mtd_part *part)
 		return;
 
 	if (!strcmp(part->mtd.name, "rootfs")) {
-		run_parsers_by_type(part, MTD_PARSER_TYPE_ROOTFS);
+		int num = run_parsers_by_type(part, MTD_PARSER_TYPE_ROOTFS);
+
+		if (num <= 0 && config_enabled(CONFIG_MTD_ROOTFS_SPLIT))
+			split_rootfs_data(master, part);
 
 		rootfs_found = 1;
 	}
