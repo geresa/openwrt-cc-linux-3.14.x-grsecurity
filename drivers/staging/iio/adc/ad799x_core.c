@@ -179,7 +179,10 @@ static int ad799x_read_raw(struct iio_dev *indio_dev,
 			RES_MASK(chan->scan_type.realbits);
 		return IIO_VAL_INT;
 	case IIO_CHAN_INFO_SCALE:
-		*val = st->int_vref_mv;
+		ret = regulator_get_voltage(st->vref);
+		if (ret < 0)
+			return ret;
+		*val =  ret / 1000;
 		*val2 = chan->scan_type.realbits;
 		return IIO_VAL_FRACTIONAL_LOG2;
 	}
@@ -533,7 +536,6 @@ static int ad799x_probe(struct i2c_client *client,
 				   const struct i2c_device_id *id)
 {
 	int ret;
-	struct ad799x_platform_data *pdata = client->dev.platform_data;
 	struct ad799x_state *st;
 	struct iio_dev *indio_dev;
 
@@ -551,17 +553,21 @@ static int ad799x_probe(struct i2c_client *client,
 
 	/* TODO: Add pdata options for filtering and bit delay */
 
-	if (!pdata)
-		return -EINVAL;
-
-	st->int_vref_mv = pdata->vref_mv;
-
 	st->reg = devm_regulator_get(&client->dev, "vcc");
-	if (!IS_ERR(st->reg)) {
-		ret = regulator_enable(st->reg);
-		if (ret)
-			return ret;
+	if (IS_ERR(st->reg))
+		return PTR_ERR(st->reg);
+	ret = regulator_enable(st->reg);
+	if (ret)
+		return ret;
+	st->vref = devm_regulator_get(&client->dev, "vref");
+	if (IS_ERR(st->vref)) {
+		ret = PTR_ERR(st->vref);
+		goto error_disable_reg;
 	}
+	ret = regulator_enable(st->vref);
+	if (ret)
+		goto error_disable_reg;
+
 	st->client = client;
 
 	indio_dev->dev.parent = &client->dev;
@@ -574,7 +580,7 @@ static int ad799x_probe(struct i2c_client *client,
 
 	ret = ad799x_register_ring_funcs_and_init(indio_dev);
 	if (ret)
-		goto error_disable_reg;
+		goto error_disable_vref;
 
 	if (client->irq > 0) {
 		ret = request_threaded_irq(client->irq,
@@ -598,9 +604,10 @@ error_free_irq:
 		free_irq(client->irq, indio_dev);
 error_cleanup_ring:
 	ad799x_ring_cleanup(indio_dev);
+error_disable_vref:
+	regulator_disable(st->vref);
 error_disable_reg:
-	if (!IS_ERR(st->reg))
-		regulator_disable(st->reg);
+	regulator_disable(st->reg);
 
 	return ret;
 }
@@ -615,8 +622,8 @@ static int ad799x_remove(struct i2c_client *client)
 		free_irq(client->irq, indio_dev);
 
 	ad799x_ring_cleanup(indio_dev);
-	if (!IS_ERR(st->reg))
-		regulator_disable(st->reg);
+	regulator_disable(st->vref);
+	regulator_disable(st->reg);
 	kfree(st->rx_buf);
 
 	return 0;
